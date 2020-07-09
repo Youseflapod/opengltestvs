@@ -25,8 +25,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="misc.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="libs\cglm.dll" />
+    <None Include="libs\glfw3.dll" />
     <None Include="shaders\frag1.glsl" />
     <None Include="shaders\frag2.glsl" />
     <None Include="shaders\vert1.glsl" />

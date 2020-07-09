@@ -3,13 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+
 #include <stdbool.h>
 #include "misc.h"
 #include <cglm/cglm.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 
 #ifndef M_PI
 # define M_PI 3.141592653
@@ -60,26 +57,20 @@ int main(void)
     //gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     //glfwSwapInterval(1); //set to 0 for infinite fps
 
+    mat4 m = {
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+        };
 
-    // TEXTURES
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture); // makes 'texture' the currently bound texture
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // don't give mipmap option!
-    int imwidth, imheight, nrChannels;
-    unsigned char *data = stbi_load("assets/container.jpg", &imwidth, &imheight, &nrChannels, 0);
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imwidth, imheight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else { printf("Bad news, the texture failed to load"); }
-    stbi_image_free(data);
-
+    glm_translate(m, (vec3) { 1.0f, 0.0f, 0.0f });
 
     printf("Hello once more C! \n");
+
     
     unsigned int shaderProgram = buildShaderProgram("vert2.glsl", "frag2.glsl");
+
 
     unsigned int VAO;
     unsigned int VBO; // id for opengl vertex buffer

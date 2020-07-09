@@ -29,11 +29,16 @@
     <ClInclude Include="misc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag1.glsl" />
     <None Include="shaders\frag2.glsl" />
     <None Include="shaders\vert1.glsl" />
     <None Include="shaders\vert2.glsl" />
+    <None Include="libs\glfw3.dll" />
+    <None Include="libs\cglm.dll" />
   </ItemGroup>
 </Project>
