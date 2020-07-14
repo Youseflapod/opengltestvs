@@ -40,5 +40,7 @@
     <None Include="shaders\vert2.glsl" />
     <None Include="libs\glfw3.dll" />
     <None Include="libs\cglm.dll" />
+    <None Include="shaders\texture.frag" />
+    <None Include="shaders\texture.vert" />
   </ItemGroup>
 </Project>
