@@ -28,7 +28,7 @@ unsigned int indices[] = {
 };
 
 GLFWwindow* window;
-int width = 1600, height = 1200;
+int width = 1200, height = 900;
 
 int main(void)
 {
