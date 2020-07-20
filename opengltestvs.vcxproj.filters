@@ -42,5 +42,7 @@
     <None Include="libs\cglm.dll" />
     <None Include="shaders\texture.frag" />
     <None Include="shaders\texture.vert" />
+    <None Include="shaders\transform.frag" />
+    <None Include="shaders\transform.vert" />
   </ItemGroup>
 </Project>

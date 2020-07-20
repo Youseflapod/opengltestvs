@@ -34,6 +34,8 @@
     <None Include="shaders\frag2.glsl" />
     <None Include="shaders\texture.frag" />
     <None Include="shaders\texture.vert" />
+    <None Include="shaders\transform.frag" />
+    <None Include="shaders\transform.vert" />
     <None Include="shaders\vert1.glsl" />
     <None Include="shaders\vert2.glsl" />
   </ItemGroup>

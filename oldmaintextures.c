@@ -7,6 +7,7 @@
 #include "misc.h"
 #include <cglm/cglm.h>
 
+
 #ifndef M_PI
 # define M_PI 3.141592653
 #endif
@@ -55,7 +56,7 @@ int main(void)
     texture1 = loadTexture("container.jpg");
     texture2 = loadTexture("awesomeface.png");
 
-    unsigned int shaderProgram = buildShaderProgram("transform.vert", "transform.frag");
+    unsigned int shaderProgram = buildShaderProgram("texture.vert", "texture.frag");
     glUseProgram(shaderProgram); // REALLY don't forget to activate the shader before setting the uniforms of it!
     glUniform1i(glGetUniformLocation(shaderProgram, "texture1"), 0); // set uniform to 0
     glUniform1i(glGetUniformLocation(shaderProgram, "texture2"), 1); // set uniform to 1 for activate
@@ -88,9 +89,6 @@ int main(void)
     glEnableVertexAttribArray(2);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	mat4 trans = GLM_MAT4_IDENTITY_INIT;
-	//glm_rotate(trans, glm_rad(90.0f), (vec3) { 0.0, 0.0, 1.0 });
-	//glm_scale(trans, (vec3) { 0.5, 0.5, 0.5 });
 
     while (!glfwWindowShouldClose(window))
     {
@@ -104,13 +102,6 @@ int main(void)
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         glUseProgram(shaderProgram);
-		mat4 trans = GLM_MAT4_IDENTITY_INIT;
-		glm_translate(trans, (vec3) { 0.5, -0.5, 0.0 });
-		glm_rotate(trans, (float)glfwGetTime(), (vec3) { 0.0, 0.0, 1.0 });
-		// glm_scale(trans, (vec3) { 0.5, 0.5, 0.5 });
-		unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, trans);
-
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glfwSwapBuffers(window);
