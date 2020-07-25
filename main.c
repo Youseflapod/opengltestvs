@@ -27,7 +27,7 @@ unsigned int indices[] = {
 };
 
 GLFWwindow* window;
-int width = 1200, height = 900;
+int width = 1200, height = 1200;
 
 int main(void)
 {
@@ -86,11 +86,7 @@ int main(void)
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	mat4 trans = GLM_MAT4_IDENTITY_INIT;
-	//glm_rotate(trans, glm_rad(90.0f), (vec3) { 0.0, 0.0, 1.0 });
-	//glm_scale(trans, (vec3) { 0.5, 0.5, 0.5 });
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
     while (!glfwWindowShouldClose(window))
     {
@@ -104,12 +100,21 @@ int main(void)
         glBindTexture(GL_TEXTURE_2D, texture2);
 
         glUseProgram(shaderProgram);
-		mat4 trans = GLM_MAT4_IDENTITY_INIT;
-		glm_translate(trans, (vec3) { 0.5, -0.5, 0.0 });
-		glm_rotate(trans, (float)glfwGetTime(), (vec3) { 0.0, 0.0, 1.0 });
-		// glm_scale(trans, (vec3) { 0.5, 0.5, 0.5 });
-		unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, trans);
+		
+        mat4 model = GLM_MAT4_IDENTITY_INIT;
+        //glm_rotate(model, (float)glfwGetTime()*10, (vec3) { 1.0, 0.0, 0.0 });
+        glm_rotate(model, (float)glfwGetTime()/1, (vec3) { 0.0, 1.0, 0.0 });
+        //glm_rotate(model, (float)glfwGetTime(), (vec3) { 0.5, 0.5, 0.0 });
+        glm_rotate(model, glm_rad(-55.0f), (vec3) { 1.0, 0.0, 0.0 });
+        mat4 view = GLM_MAT4_IDENTITY_INIT;
+        glm_translate(view, (vec3) { 0, 0, -0.5 });
+        mat4 proj;
+        glm_perspective(glm_rad(100.0f), width / height, 0.01f, 100.0f, proj);
+        mat4 mvp;
+        glm_mat4_mulN((mat4* []) { &proj, & view, & model }, 3, mvp);
+
+		unsigned int transformLoc = glGetUniformLocation(shaderProgram, "mvp");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, mvp);
 
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
