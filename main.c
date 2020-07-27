@@ -181,7 +181,19 @@ int main(void)
 
         glBindVertexArray(VAO);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        //glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        for (int i = 0; i < 10; i++) {
+            mat4 model;
+            glm_translate_make(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            glm_rotate(model, glm_rad(angle) + (float)glfwGetTime()/((i+1.0f)), (vec3){ 1.0f, 0.3f, 0.5f });
+            glm_mat4_mulN((mat4* []) { &proj, & view, & model }, 3, mvp);
+            unsigned int transformLoc = glGetUniformLocation(shaderProgram, "mvp");
+            glUniformMatrix4fv(transformLoc, 1, GL_FALSE, mvp);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
